@@ -1,1 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tesoura Futebol — V3</title>
+  <style>
+    :root{--bg:#0b1220;--card:#0f1a33;--line:#22345e;--txt:#eaf0ff;--muted:#a8b4d6;--accent:#f39c12;--btn:#1e5eff;--btn2:#1aa3ff}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 600px at 20% 0%,#132246 0%,var(--bg) 55%) fixed;color:var(--txt)}
+    .wrap{max-width:1040px;margin:0 auto;padding:28px 18px 60px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(15,26,51,.75)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffcc66);display:grid;place-items:center;color:#111;font-weight:900}
+    .ttl h1{margin:0;font-size:18px} .ttl p{margin:3px 0 0;color:var(--muted);font-size:12px}
+    .badge{font-size:12px;color:#091226;background:var(--accent);padding:6px 10px;border-radius:999px;font-weight:800}
+    .grid{margin-top:18px;display:grid;grid-template-columns:1.15fr .85fr;gap:14px} @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--line);background:rgba(15,26,51,.72);border-radius:16px;padding:16px}
+    .card h2{margin:0 0 10px;font-size:16px;color:var(--accent)} .card p{margin:0 0 10px;color:var(--muted);font-size:13px}
+    .actions{display:grid;gap:10px;margin-top:12px}
+    .btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:0;border-radius:12px;padding:12px 14px;color:white;background:linear-gradient(135deg,var(--btn),#2447ff);font-weight:800;text-decoration:none;opacity:.45;cursor:not-allowed}
+    .btn.alt{background:linear-gradient(135deg,var(--btn2),#2bd4ff);color:#061019}
+    .hint{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px dashed #2d4477;color:var(--muted);font-size:12px}
+    .item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(11,18,32,.35);font-size:13px;color:var(--muted)}
+    .item b{color:var(--txt)} .pill{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo">T</div>
+        <div class="ttl">
+          <h1>Tesoura Futebol — V3</h1>
+          <p>Site oficial • Base estável • Começo do zero</p>
+        </div>
+      </div>
+      <div class="badge">ONLINE</div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Entrar</h2>
+        <p>Os painéis serão criados no V3. Por enquanto, esta é a Página Inicial oficial.</p>
+
+        <div class="actions">
+          <a class="btn alt" href="#" onclick="return false;">ENTRAR — JOGADORES <small>Senha única</small></a>
+          <a class="btn" href="#" onclick="return false;">ENTRAR — DIRETORES <small>Login Supabase</small></a>
+        </div>
+
+        <div class="hint">Próximo passo: ligar Supabase e criar o Painel 1 (Jogadores).</div>
+      </section>
+
+      <aside class="card">
+        <h2>Status</h2>
+        <div class="item"><b>Página Inicial</b><span class="pill">OK</span></div>
+        <div class="item"><b>Painéis</b><span class="pill">Em construção</span></div>
+        <div class="item"><b>Banco (Supabase)</b><span class="pill">Vamos configurar</span></div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
 
