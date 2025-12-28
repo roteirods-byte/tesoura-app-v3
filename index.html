@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tesoura Futebol — V3</title>
+  <meta name="description" content="Tesoura Futebol — App profissional de controle do futebol." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a33;
+      --line:#22345e;
+      --txt:#eaf0ff;
+      --muted:#a8b4d6;
+      --accent:#f39c12;
+      --btn:#1e5eff;
+      --btn2:#1aa3ff;
+      --danger:#ff4d4d;
+      --ok:#20c997;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, #132246 0%, var(--bg) 55%) fixed;
+      color:var(--txt);
+    }
+    .wrap{max-width:1040px;margin:0 auto;padding:28px 18px 60px}
+    .top{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(15,26,51,.75);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:42px;height:42px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#ffcc66);
+      display:grid;place-items:center;color:#111;font-weight:900;
+      box-shadow:0 10px 30px rgba(243,156,18,.18);
+      user-select:none;
+    }
+    .ttl{line-height:1.1}
+    .ttl h1{margin:0;font-size:18px}
+    .ttl p{margin:3px 0 0;color:var(--muted);font-size:12px}
+    .badge{
+      font-size:12px;color:#091226;background:var(--accent);
+      padding:6px 10px;border-radius:999px;font-weight:800;
+    }
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+    }
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border:1px solid var(--line);
+      background:rgba(15,26,51,.72);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 12px 40px rgba(0,0,0,.28);
+    }
+    .card h2{margin:0 0 10px;font-size:16px;color:var(--accent)}
+    .card p{margin:0 0 10px;color:var(--muted);font-size:13px}
+
+    .actions{display:grid;gap:10px;margin-top:12px}
+    .btn{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      width:100%;
+      border:0;border-radius:12px;
+      padding:12px 14px;
+      color:white;
+      background:linear-gradient(135deg,var(--btn),#2447ff);
+      cursor:pointer;
+      font-weight:800;
+      text-decoration:none;
+    }
+    .btn.alt{background:linear-gradient(135deg,var(--btn2),#2bd4ff); color:#061019}
+    .btn.disabled{opacity:.45;cursor:not-allowed}
+    .btn small{font-weight:700;opacity:.9}
+    .hint{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px dashed #2d4477;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .list{display:grid;gap:8px;margin-top:10px}
+    .item{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:10px 12px;border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(11,18,32,.35);
+      font-size:13px;color:var(--muted);
+    }
+    .item b{color:var(--txt);font-weight:800}
+    .pill{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+    .ok{border-color:rgba(32,201,151,.45);color:rgba(32,201,151,.95)}
+    .warn{border-color:rgba(243,156,18,.45);color:rgba(243,156,18,.95)}
+    .off{border-color:rgba(255,77,77,.35);color:rgba(255,77,77,.9)}
+
+    footer{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+    }
+    a.link{color:#9ec3ff;text-decoration:none}
+    a.link:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo">T</div>
+        <div class="ttl">
+          <h1>Tesoura Futebol — V3</h1>
+          <p>Site oficial • Base estável • Começo do zero</p>
+        </div>
+      </div>
+      <div class="badge">ONLINE (em breve)</div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Entrar</h2>
+        <p>Escolha o perfil para acessar os painéis. (Os painéis ainda serão criados no V3.)</p>
+
+        <div class="actions">
+          <a class="btn alt disabled" href="#" onclick="return false;">
+            <span>ENTRAR — JOGADORES</span>
+            <small>Senha única</small>
+          </a>
+
+          <a class="btn disabled" href="#" onclick="return false;">
+            <span>ENTRAR — DIRETORES</span>
+            <small>Login Supabase</small>
+          </a>
+        </div>
+
+        <div class="hint">
+          ✅ Próximo passo do V3: ativar esta página no Cloudflare Pages (sem 404) e depois criar cada painel separado.
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>Status do V3</h2>
+        <div class="list">
+          <div class="item">
+            <b>Página Inicial</b>
+            <span class="pill ok">OK</span>
+          </div>
+          <div class="item">
+            <b>Painéis (Jogadores, Presença, etc.)</b>
+            <span class="pill warn">Em construção</span>
+          </div>
+          <div class="item">
+            <b>Banco de Dados (Supabase)</b>
+            <span class="pill warn">Vamos configurar</span>
+          </div>
+          <div class="item">
+            <b>Baixar/Imprimir</b>
+            <span class="pill off">Somente no Banco</span>
+          </div>
+        </div>
+
+        <footer>
+          <span>© Tesoura Futebol</span>
+          <span><a class="link" href="#" onclick="return false;">Versão V3</a></span>
+        </footer>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
