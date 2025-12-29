@@ -12,32 +12,74 @@
     .card{border:1px solid var(--line);background:rgba(15,26,51,.75);border-radius:16px;padding:18px}
     h1{margin:0 0 8px;font-size:20px}
     p{margin:0 0 14px;color:var(--muted);font-size:13px}
+    label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px}
+    input{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--line);background:#0b142b;color:var(--txt);outline:none}
     .row{display:flex;gap:10px;margin-top:14px}
-    .btn{flex:1;cursor:pointer;border:0;border-radius:12px;padding:12px 14px;color:#091226;font-weight:900;background:linear-gradient(135deg,#ffcf7a,#f39c12)}
-    .btn2{flex:1;cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--txt);font-weight:900;background:transparent}
-    .msg{margin-top:10px;font-size:13px;color:#ffcf7a}
+    .btn{flex:1;cursor:pointer;border:0;border-radius:12px;padding:12px 14px;color:#061019;font-weight:800;background:linear-gradient(135deg,#28d7a2,#1aa98e)}
+    .btn2{flex:1;cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--txt);font-weight:800;background:transparent}
+    .msg{margin-top:10px;font-size:13px;color:#ffcf7a;min-height:18px}
+    .badge{display:inline-block;background:var(--accent);color:#091226;font-weight:900;border-radius:999px;padding:4px 10px;font-size:12px}
+    .hint{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.4}
+    .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 8px;margin:3px 6px 0 0;color:var(--txt);font-size:12px}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Diretores</h1>
-      <p>Login Supabase será ligado depois. Por enquanto, entra como diretor para testar os painéis.</p>
+      <div class="badge">Diretores</div>
+      <h1>Senha do Diretor</h1>
+      <p>Após digitar a senha, você entra no modo <b>diretor</b> (edita). Alguns diretores ficam <b>sem Caixa</b>.</p>
+
+      <label>Senha (visível)</label>
+      <input id="senha" type="text" placeholder="Digite a senha do diretor" autocomplete="off" />
 
       <div class="row">
-        <button class="btn" id="entrar">ENTRAR (teste)</button>
+        <button class="btn" id="entrar" type="button">ENTRAR</button>
         <a class="btn2" href="./index.html" style="text-decoration:none;display:flex;align-items:center;justify-content:center">VOLTAR</a>
       </div>
 
       <div class="msg" id="msg"></div>
+
+      <div class="hint">
+        Diretores:
+        <div>
+          <span class="pill">1baidec (tudo)</span>
+          <span class="pill">2thiago (tudo)</span>
+          <span class="pill">3love (sem caixa)</span>
+          <span class="pill">4le (sem caixa)</span>
+          <span class="pill">5titi (sem caixa)</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    document.getElementById("entrar").onclick = () => {
-      sessionStorage.setItem("tesoura_role", "diretor");
-      location.href = "./jogadores_admin.html";
+    const SENHAS_DIRETORES = {
+      "1baidec": { can_caixa: true  }, // tudo
+      "2thiago": { can_caixa: true  }, // tudo
+      "3love":   { can_caixa: false }, // sem caixa
+      "4le":     { can_caixa: false }, // sem caixa
+      "5titi":   { can_caixa: false }  // sem caixa
     };
+
+    const $ = (id)=>document.getElementById(id);
+
+    function entrar() {
+      const s = $("senha").value.trim();
+      if (!s) { $("msg").textContent = "Digite a senha."; return; }
+
+      const info = SENHAS_DIRETORES[s];
+      if (!info) { $("msg").textContent = "Senha incorreta."; return; }
+
+      sessionStorage.setItem("tesoura_role", "diretor");
+      sessionStorage.setItem("tesoura_can_edit", "1");                 // diretor EDITA
+      sessionStorage.setItem("tesoura_can_caixa", info.can_caixa ? "1" : "0");
+
+      location.href = "./app.html";
+    }
+
+    $("entrar").onclick = entrar;
+    $("senha").addEventListener("keydown", (e)=>{ if(e.key==="Enter") entrar(); });
   </script>
 </body>
 </html>
