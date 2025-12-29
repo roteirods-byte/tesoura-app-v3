@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jogadores</title>
+</head>
+<body>
+<script>
+  const role = sessionStorage.getItem("tesoura_role");
+
+  // Se entrou como jogador: vai para visual
+  if (role === "jogador") {
+    location.replace("./jogadores_visual.html");
+  }
+  // Se entrou como diretor: vai para admin (edita)
+  else if (role === "diretor") {
+    location.replace("./jogadores_admin.html");
+  }
+  // Se não fez login: volta pra home
+  else {
+    alert("Acesso negado. Volte e faça login.");
+    location.replace("./index.html");
+  }
+</script>
+</body>
+</html>
