@@ -10,15 +10,21 @@
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 20% 0%, #132246 0%, var(--bg) 55%) fixed;color:var(--txt)}
     .wrap{max-width:1100px;margin:0 auto;padding:18px}
     .top{border:1px solid var(--line);background:rgba(15,26,51,.75);border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px}
+    .brand{display:flex;align-items:center;gap:12px}
     .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffd08a);display:grid;place-items:center;color:#091226;font-weight:900}
     .muted{color:var(--muted);font-size:12px}
-    .role{font-weight:900;color:#091226;background:var(--accent);border-radius:999px;padding:4px 10px;font-size:12px}
+    .role{font-weight:900;color:#091226;background:var(--accent);border-radius:999px;padding:4px 10px;font-size:12px;white-space:nowrap}
+    .btn{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--txt);font-weight:800;background:transparent;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .btn:hover{background:rgba(255,255,255,.06)}
+    .btn.primary{border:0;background:linear-gradient(135deg,#28d7a2,#1aa98e);color:#061019}
+    .btn.disabled{opacity:.45;pointer-events:none}
     .nav{margin-top:12px;border:1px solid var(--line);background:rgba(15,26,51,.55);border-radius:16px;padding:10px;display:flex;flex-wrap:wrap;gap:10px}
-    a.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;text-decoration:none;color:var(--txt);border:1px solid var(--line);
-      border-radius:12px;padding:10px 12px;background:transparent;font-weight:800}
-    a.btn:hover{background:rgba(255,255,255,.05)}
-    .hint{margin-top:12px;color:var(--muted);font-size:13px}
+    .main{margin-top:12px;border:1px solid var(--line);background:rgba(15,26,51,.55);border-radius:16px;padding:14px;min-height:420px}
+    .title{font-weight:900}
+    .hint{margin-top:8px;color:var(--muted);font-size:13px}
+    .frame{width:100%;height:520px;border:1px solid var(--line);border-radius:14px;background:#0b142b}
+    .hidden{display:none}
+    .active{background:rgba(255,255,255,.06)}
   </style>
 </head>
 <body>
@@ -27,64 +33,127 @@
       <div class="brand">
         <div class="logo">T</div>
         <div>
-          <div style="font-weight:900">Tesoura — Página Geral</div>
-          <div class="muted">Escolha um painel no topo • Jogador = visual • Diretor = edita</div>
+          <div class="title">Tesoura — Página Geral</div>
+          <div class="muted" id="sub"></div>
         </div>
       </div>
-      <div class="role" id="roleTag">---</div>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="role" id="roleTag">—</div>
+        <button class="btn" id="sair" type="button">SAIR</button>
+      </div>
     </div>
 
     <div class="nav" id="nav"></div>
 
-    <div class="hint">
-      Se abrir esta página sem login, volta para a Página 1.
+    <div class="main">
+      <div id="home">
+        <div class="title">Escolha um painel no topo</div>
+        <div class="hint" id="homeHint"></div>
+      </div>
+
+      <iframe id="frame" class="frame hidden" src="about:blank"></iframe>
     </div>
   </div>
 
   <script>
-    const role = sessionStorage.getItem("tesoura_role"); // "jogador" | "diretor"
+    const role = sessionStorage.getItem("tesoura_role");            // jogador | diretor
+    const canEdit = sessionStorage.getItem("tesoura_can_edit")==="1";
+    const canCaixa = sessionStorage.getItem("tesoura_can_caixa")==="1";
+
     if (!role) location.href = "./index.html";
 
-    document.getElementById("roleTag").textContent = (role === "diretor") ? "DIRETOR (edita)" : "JOGADOR (visual)";
+    const roleTxt =
+      role === "jogador"
+        ? "JOGADOR (VISUAL)"
+        : ("DIRETOR (EDITA)" + (canCaixa ? " — COM CAIXA" : " — SEM CAIXA"));
 
-    // LINKS (ajuste os nomes se seus arquivos forem diferentes)
-    const P = {
-      jogadores: (role === "diretor") ? "./jogadores_admin.html" : "./jogadores_visual.html",
-      presenca: "./presenca.html",
-      escalacao: "./escalacao.html",
-      mensalidade: "./mensalidade.html",
-      caixa: "./caixa.html",
-      gols: "./gols.html",
-      controle: "./controle_geral.html",
-      banco: "./banco_dados.html",
-      arquivo: "./arquivo_geral.html", // PAINEL ARQUIVO GERAL (se ainda não existir, fica para criar)
-      sair: "./index.html"
+    document.getElementById("roleTag").textContent = roleTxt;
+    document.getElementById("sub").textContent =
+      role === "jogador"
+        ? "Acesso visual (não edita)."
+        : "Acesso diretor (edita).";
+
+    document.getElementById("homeHint").innerHTML =
+      role === "jogador"
+        ? "Você pode <b>visualizar</b> os painéis. (Edição bloqueada.)"
+        : "Você pode <b>editar</b> os painéis. " + (canCaixa ? "" : "(<b>Caixa bloqueado</b> para este diretor.)");
+
+    document.getElementById("sair").onclick = () => {
+      sessionStorage.clear();
+      location.href = "./index.html";
     };
 
-    const itens = [
-      ["Jogadores", P.jogadores],
-      ["Presença", P.presenca],
-      ["Escalação", P.escalacao],
-      ["Mensalidade", P.mensalidade],
-      ["Caixa", P.caixa],
-      ["Gols", P.gols],
-      ["Controle Geral", P.controle],
-      ["Banco de Dados", P.banco],
-      ["Arquivo Geral", P.arquivo],
-      ["Sair", P.sair]
+    // >>> NOME DOS ARQUIVOS DOS PAINEIS (coloque aqui conforme você for criando)
+    // Já existem:
+    const FILE_JOGADORES_VISUAL = "./jogadores_visual.html";
+    const FILE_JOGADORES_ADMIN  = "./jogadores_admin.html";
+
+    // Ainda vamos criar depois (deixe em branco por enquanto se não existir):
+    const FILE_PRESENCA     = ""; // ex: "./presencas.html"
+    const FILE_ESCALACAO    = ""; // ex: "./escalacao.html"
+    const FILE_CONTROLE     = ""; // ex: "./controle_geral.html"
+    const FILE_MENSALIDADE  = ""; // ex: "./mensalidade.html"
+    const FILE_CAIXA        = ""; // ex: "./caixa.html"
+    const FILE_GOLS         = ""; // ex: "./gols.html"
+    const FILE_BANCO_DADOS  = ""; // ex: "./banco_dados.html"
+    const FILE_ARQUIVO_GERAL= "./arquivo_geral.html"; // vamos criar no PASSO 3
+
+    const panels = [
+      { key:"jogadores", label:"JOGADORES", file: canEdit ? FILE_JOGADORES_ADMIN : FILE_JOGADORES_VISUAL },
+      { key:"presenca", label:"PRESENÇA", file: FILE_PRESENCA },
+      { key:"escalacao", label:"ESCALAÇÃO", file: FILE_ESCALACAO },
+      { key:"controle", label:"CONTROLE GERAL", file: FILE_CONTROLE },
+      { key:"mensalidade", label:"MENSALIDADE", file: FILE_MENSALIDADE },
+      { key:"caixa", label:"CAIXA", file: FILE_CAIXA, precisaCaixa: true },
+      { key:"gols", label:"GOLS", file: FILE_GOLS },
+      { key:"banco", label:"BANCO DE DADOS", file: FILE_BANCO_DADOS },
+      { key:"arquivo", label:"ARQUIVO GERAL", file: FILE_ARQUIVO_GERAL }
     ];
 
     const nav = document.getElementById("nav");
-    itens.forEach(([txt, href])=>{
-      const a = document.createElement("a");
-      a.className = "btn";
-      a.href = href;
-      a.textContent = txt;
-      if (txt === "Sair") {
-        a.onclick = (e)=>{ e.preventDefault(); sessionStorage.removeItem("tesoura_role"); location.href="./index.html"; };
+    const frame = document.getElementById("frame");
+    const home = document.getElementById("home");
+
+    function openPanel(p) {
+      if (p.precisaCaixa && !canCaixa) {
+        alert("Seu acesso é SEM CAIXA. Este painel está bloqueado.");
+        return;
       }
+      if (!p.file) {
+        alert("Painel em construção (arquivo ainda não existe).");
+        return;
+      }
+
+      // marca ativo
+      [...nav.querySelectorAll("a")].forEach(a=>a.classList.remove("active"));
+      const btn = document.querySelector(`[data-key="${p.key}"]`);
+      if (btn) btn.classList.add("active");
+
+      home.classList.add("hidden");
+      frame.classList.remove("hidden");
+      frame.src = p.file;
+    }
+
+    // monta menu
+    panels.forEach(p => {
+      const a = document.createElement("a");
+      a.href = "#";
+      a.className = "btn";
+      a.textContent = p.label;
+      a.dataset.key = p.key;
+
+      // Caixa bloqueado por regra do diretor
+      if (p.precisaCaixa && !canCaixa) {
+        a.classList.add("disabled");
+        a.title = "Bloqueado (sem Caixa)";
+      }
+
+      a.onclick = (ev) => { ev.preventDefault(); openPanel(p); };
       nav.appendChild(a);
     });
+
+    // NÃO abre nada automaticamente (fica na tela geral)
   </script>
 </body>
 </html>
