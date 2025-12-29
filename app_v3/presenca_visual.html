@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Presença (visual)</title>
+  <style>
+    :root{--bg:#0b1220;--card:#0f1a33;--line:#22345e;--txt:#eaf0ff;--muted:#a8b4d6;--accent:#f39c12;}
+    *{box-sizing:border-box}
+    body{margin:0;overflow-x:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 20% 0%, #132246 0%, var(--bg) 55%) fixed;color:var(--txt)}
+    .wrap{max-width:1400px;margin:0 auto;padding:18px}
+    .top{border:1px solid var(--line);background:rgba(15,26,51,.75);border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .title{font-weight:900;font-size:18px;margin:0}
+    .muted{color:var(--muted);font-size:13px}
+    .btn{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--txt);font-weight:800;background:transparent;text-decoration:none}
+    .btn:hover{background:rgba(255,255,255,.06)}
+    .card{margin-top:12px;border:1px solid var(--line);background:rgba(15,26,51,.55);border-radius:16px;padding:14px;min-height:420px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="title">Presença (visual)</div>
+        <div class="muted">Jogador: somente visualização (sem edição).</div>
+      </div>
+      <a class="btn" href="./app.html">VOLTAR</a>
+    </div>
+
+    <div class="card">
+      <div class="title" style="font-size:16px">Lista do domingo</div>
+      <div class="muted">Em construção. Aqui vai aparecer a presença do domingo (visual).</div>
+    </div>
+  </div>
+
+  <script>
+    if (!sessionStorage.getItem("tesoura_role")) location.href="./index.html";
+  </script>
+</body>
+</html>
