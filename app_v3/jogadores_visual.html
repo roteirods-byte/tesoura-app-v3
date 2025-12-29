@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jogadores (visual)</title>
+  <style>
+    :root{--bg:#0b1220;--card:#0f1a33;--line:#22345e;--txt:#eaf0ff;--muted:#a8b4d6;--accent:#f39c12;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 20% 0%, #132246 0%, var(--bg) 55%) fixed;color:var(--txt)}
+    .wrap{max-width:1200px;margin:0 auto;padding:22px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);background:rgba(15,26,51,.75);border-radius:16px;padding:14px 16px}
+    .ttl{display:flex;flex-direction:column}
+    .ttl h1{margin:0;font-size:18px}
+    .ttl p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-weight:800}
+    .card{margin-top:14px;border:1px solid var(--line);background:rgba(15,26,51,.75);border-radius:16px;padding:14px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .btn{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;font-weight:900;color:#091226;background:linear-gradient(135deg,#ffcf7a,#f39c12)}
+    .btn2{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:900;color:var(--txt);background:transparent}
+    table{width:100%;border-collapse:collapse;margin-top:12px;overflow:hidden}
+    th,td{border-bottom:1px solid rgba(34,52,94,.55);padding:10px 8px;font-size:12px;text-align:left}
+    th{color:#ffb454;font-weight:900}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="ttl">
+        <h1>Jogadores (visual)</h1>
+        <p>Somente visualização. Não edita.</p>
+      </div>
+      <div class="pill">Total cadastrados: <span id="total">0</span></div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="muted">Lista (ordem automática 1,2,3...)</div>
+        <div>
+          <button class="btn" id="baixar">BAIXAR</button>
+          <a class="btn2" href="./index.html" style="text-decoration:none">VOLTAR</a>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ORDEM</th>
+            <th>CAMISA</th>
+            <th>APELIDO</th>
+            <th>NOME</th>
+            <th>NASC.</th>
+            <th>IDADE</th>
+            <th>TELE</th>
+            <th>POS</th>
+            <th>HAB</th>
+            <th>VEL</th>
+            <th>MOV</th>
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="12" class="muted">Sem dados (layout). A ligação com o banco entra depois.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // trava: só entra se passou pela senha
+    if (sessionStorage.getItem("tesoura_role") !== "jogador") {
+      alert("Acesso negado. Volte e faça login.");
+      location.replace("./index.html");
+    }
+
+    document.getElementById("baixar").onclick = () => {
+      alert("BAIXAR (visual) será ligado no Banco de Dados depois.");
+    };
+
+    // por enquanto, total 0 (quando ligar no banco, preencheremos)
+    document.getElementById("total").textContent = "0";
+  </script>
+</body>
+</html>
